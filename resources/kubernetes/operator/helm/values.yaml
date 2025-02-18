@@ -889,7 +889,7 @@ collectors:
               - attributes/dataset
               - resource/process
             exporters:
-              - debug
+#              - debug
               - elasticsearch/ecs
 #          metrics/otel-apm:
 #            receivers:
