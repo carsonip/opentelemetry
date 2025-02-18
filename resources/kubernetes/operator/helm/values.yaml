@@ -520,6 +520,8 @@ collectors:
           #   insecure_skip_verify: true
           mapping:
             mode: ecs
+          telemetry:
+            log_request_body: true
       processors:
         # [Batch Processor](https://github.com/open-telemetry/opentelemetry-collector/tree/main/processor/batchprocessor)
         batch: {}
@@ -833,39 +835,42 @@ collectors:
 
       # [Service Section](https://opentelemetry.io/docs/collector/configuration/#service)
       service:
+        telemetry:
+          logs:
+            level: debug
         pipelines:
-          logs/node:
-            receivers:
-             -  filelog
-            processors:
-              - batch
-              - k8sattributes
-              - resourcedetection/system
-              - resourcedetection/eks
-              - resourcedetection/gcp
-              - resourcedetection/aks
-              - resource/k8s
-              - resource/hostname
-              - resource/cloud
-            exporters:
-              - debug
-              - elasticsearch/otel
-          metrics/node/otel:
-            receivers:
-              - kubeletstats
-            processors:
-              - batch
-              - k8sattributes
-              - resourcedetection/system
-              - resourcedetection/eks
-              - resourcedetection/gcp
-              - resourcedetection/aks
-              - resource/k8s
-              - resource/hostname
-              - resource/cloud
-            exporters:
-              - debug
-              - elasticsearch/otel
+#          logs/node:
+#            receivers:
+#             -  filelog
+#            processors:
+#              - batch
+#              - k8sattributes
+#              - resourcedetection/system
+#              - resourcedetection/eks
+#              - resourcedetection/gcp
+#              - resourcedetection/aks
+#              - resource/k8s
+#              - resource/hostname
+#              - resource/cloud
+#            exporters:
+#              - debug
+#              - elasticsearch/otel
+#          metrics/node/otel:
+#            receivers:
+#              - kubeletstats
+#            processors:
+#              - batch
+#              - k8sattributes
+#              - resourcedetection/system
+#              - resourcedetection/eks
+#              - resourcedetection/gcp
+#              - resourcedetection/aks
+#              - resource/k8s
+#              - resource/hostname
+#              - resource/cloud
+#            exporters:
+#              - debug
+#              - elasticsearch/otel
           metrics/node/ecs:
             receivers:
               - hostmetrics
@@ -886,46 +891,46 @@ collectors:
             exporters:
               - debug
               - elasticsearch/ecs
-          metrics/otel-apm:
-            receivers:
-              - otlp
-            processors:
-              - batch
-              - resource/hostname
-            exporters:
-              - debug
-              - signaltometrics
-              - elasticsearch/otel
-          logs/apm:
-            receivers:
-              - otlp
-            processors:
-              - batch
-              - resource/hostname
-            exporters:
-              - debug
-              - signaltometrics
-              - elasticsearch/otel
-          traces/apm:
-            receivers:
-              - otlp
-            processors:
-              - batch
-              - elastictrace
-              - resource/hostname
-            exporters:
-              - debug
-              - signaltometrics
-              - elasticsearch/otel
-          metrics/aggregated-otel-metrics:
-            receivers:
-              - signaltometrics
-            processors:
-              - batch
-              - lsminterval
-            exporters:
-              - debug
-              - elasticsearch/otel
+#          metrics/otel-apm:
+#            receivers:
+#              - otlp
+#            processors:
+#              - batch
+#              - resource/hostname
+#            exporters:
+#              - debug
+#              - signaltometrics
+#              - elasticsearch/otel
+#          logs/apm:
+#            receivers:
+#              - otlp
+#            processors:
+#              - batch
+#              - resource/hostname
+#            exporters:
+#              - debug
+#              - signaltometrics
+#              - elasticsearch/otel
+#          traces/apm:
+#            receivers:
+#              - otlp
+#            processors:
+#              - batch
+#              - elastictrace
+#              - resource/hostname
+#            exporters:
+#              - debug
+#              - signaltometrics
+#              - elasticsearch/otel
+#          metrics/aggregated-otel-metrics:
+#            receivers:
+#              - signaltometrics
+#            processors:
+#              - batch
+#              - lsminterval
+#            exporters:
+#              - debug
+#              - elasticsearch/otel
 
 # For more details on OpenTelemetry's zero-code instrumentation, see:
 # https://opentelemetry.io/docs/concepts/instrumentation/zero-code/
