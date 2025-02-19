@@ -877,7 +877,7 @@ collectors:
               - kubeletstats
             processors:
               - elasticinframetrics
-              - batch
+              #- batch
               - k8sattributes/ecs
               - resourcedetection/system
               - resourcedetection/eks
